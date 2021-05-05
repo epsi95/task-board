@@ -1,0 +1,75 @@
+body {
+    background-color: #fea82f;
+}
+
+.container-fluid {
+    display: flex;
+}
+
+#nav {
+    background-color: #e1701a;
+    color: white;
+    height: 60px;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#nav h1 {
+    margin: 0;
+}
+
+#add-person {
+    margin: 8px 0 8px auto;
+}
+
+#task-card {
+    background-color: #f6dcbf;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 0px;
+    margin: 5px;
+}
+
+#task-card ul {
+    list-style: none;
+    padding-left: 10px;
+}
+
+#task-card li:hover {
+    background-color: #e1701a;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+#task-card #content-header {
+    border-radius: 5px 5px 0 0;
+    background-color: #aaaaaa;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#task-card #content-header h3 {
+    display: inline-block;
+    width: 200px;
+}
+
+#task-card #content-header .action-buttons {
+    display: inline-block;
+    width: 80px;
+}
+
+#task-card #content-header .action-buttons i {
+    margin-left: 5px;
+}
+
+
+#task-card #content-body {
+    margin: 0;
+    padding: 5px;
+}
+
+strong {
+    border-bottom: 2px solid yellowgreen;
+}

@@ -1,0 +1,94 @@
+{% include "header.html" %}
+<div class="container-fluid">
+  <button class="btn btn-primary" type="submit" id="add-person" data-bs-toggle="modal"
+    data-bs-target="#exampleModal">Add Person</button>
+</div>
+
+<div class="container">
+  <div class="row">
+    {% for each_person in tasks %}
+    <div class="col-md-3" id="task-card">
+      <div class="row" id="content-header">
+        <h3 class="text-break">{{ each_person }}</h3>
+        <div class="action-buttons">
+          <i class="fas fa-plus" onclick="addTask('{{each_person}}')"></i>
+          <form action="/deleteUser" method="POST" style="display: inline-block;">
+            <input type="text" hidden value="{{ each_person }}" name="personName">
+            <button style="background-color: #ffffff00;
+            border: none;"><i class="fas fa-trash-alt" type="submit"></i></button>
+            
+          </form>
+        </div>
+      </div>
+      <div class="row" id="content-body">
+        <ul class="text-break" id="{{ each_person }}" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <strong>List of Tasks</strong>
+          {% for each_task in tasks[each_person] %}
+          <li draggable="true" ondragstart="drag(event)" id="{{ each_task['id'] }}">🎯 {{ each_task['task_content'] }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Person</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/addPerson" method="POST">
+          <div class="mb-3">
+            <label for="personName" class="form-label">Name</label>
+            <input type="text" name="personName" required class="form-control" id="personName"
+              aria-describedby="personName" placeholder="name of the person">
+
+              <label for="taskName" class="form-label">Task</label>
+              <input type="text" name="taskName" required class="form-control" id="taskName"
+                aria-describedby="taskName" placeholder="add one task">
+              
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal2 -->
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel2">Add Task</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/addTask" method="POST">
+          <div class="mb-3">
+            <input type="text" hidden value="" id="person-name" name="personName">
+            <label for="taskName" class="form-label">Task Name</label>
+            <input type="text" name="taskName" required class="form-control" id="taskName"
+              aria-describedby="taskName" placeholder="task description">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% include "footer.html" %}

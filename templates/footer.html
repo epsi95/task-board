@@ -1,0 +1,62 @@
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous">
+    </script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>
+    -->
+    <script defer>
+      let shouldShouldAlert = {{should_show_alert}};
+      shouldShouldAlert ? alert("person name already exists!") : null;
+
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+
+      function drop(ev) {
+        ev.preventDefault();
+        let data = ev.dataTransfer.getData("text");
+        console.log(ev.dataTransfer.getData("text"), ev.target.parentElement.id)
+        if(ev.target.parentElement.tagName == 'UL'){
+          ev.target.parentElement.appendChild(document.getElementById(data));
+          fetch('/moveTask', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              task_id: ev.dataTransfer.getData("text"),
+              person_name: ev.target.parentElement.id
+            })
+          }).then((response)=>{
+            if(response.ok){
+              return response.json();
+            }else{
+              alert('Network issue! Unable to move task.')
+            }
+          }).then((r)=>console.log(r));
+      }else{
+        console.log('Drop not allowed here');
+      }
+    }
+
+    function addTask(person){
+      console.log('need to add task to ' + person);
+      let userField = document.getElementById('person-name');
+      userField.value = person;
+      let myModal = new bootstrap.Modal(document.getElementById('exampleModal2'))
+      myModal.show();
+    }
+    </script>
+    </body>
+
+    </html>
