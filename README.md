@@ -19,4 +19,4 @@ python app.py
 ### access it at `localhost:8080`
 
 ## sample output
-<img sre="https://github.com/epsi95/task-board/blob/main/output/taskBoard.gif" alt="sample output" width="500px">
+<img src="./output/taskBoard.gif" alt="sample output" width="500px">
